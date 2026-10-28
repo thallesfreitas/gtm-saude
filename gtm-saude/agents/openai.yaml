@@ -1,0 +1,4 @@
+interface:
+  display_name: "GTM Saúde: estratégia guiada"
+  short_description: "Da entrevista sobre seu negócio ao plano de GTM"
+  default_prompt: "Use $gtm-saude para me ajudar a construir a estratégia de GTM do meu negócio, fazendo uma pergunta por vez."
