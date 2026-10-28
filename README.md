@@ -13,10 +13,56 @@ Use $skill-installer para instalar:
 https://github.com/thallesfreitas/gtm-saude/tree/main/gtm-saude
 ```
 
+## Instalar no Claude
+
+A pasta `gtm-saude/` segue o formato de skill do Claude (`SKILL.md` + `references/`), então funciona sem adaptação. O arquivo `agents/openai.yaml` é só do Codex e é ignorado.
+
+### Claude Code (terminal)
+
+Com um comando:
+
+```bash
+npx skills add thallesfreitas/gtm-saude
+```
+
+Quando perguntar em quais agentes instalar, escolha Claude Code.
+
+Ou manualmente, sem instalador:
+
+```bash
+git clone --depth 1 https://github.com/thallesfreitas/gtm-saude /tmp/gtm-saude && \
+mkdir -p ~/.claude/skills && cp -r /tmp/gtm-saude/gtm-saude ~/.claude/skills/
+```
+
+Abra uma sessão nova e confira com `/skills`.
+
+### App do Claude (web e desktop)
+
+1. Gere o .zip da skill:
+
+   ```bash
+   git clone --depth 1 https://github.com/thallesfreitas/gtm-saude /tmp/gtm-saude && \
+   cd /tmp/gtm-saude && zip -r ~/Desktop/gtm-saude.zip gtm-saude -x 'gtm-saude/agents/*'
+   ```
+
+2. Confirme que execução de código e criação de arquivos estão ativadas em **Settings > Capabilities**.
+3. Vá em **Customize > Skills**, clique em **+**, depois **Create skill** e **Upload a skill**.
+4. Envie o `gtm-saude.zip`.
+
+Skills instaladas no app também aparecem no Claude Code quando você entra com a mesma conta. O contrário não acontece: o que é instalado só no Claude Code não vai para o app.
+
 ## Começar
+
+No Codex:
 
 ```text
 Use $gtm-saude para construir a estratégia do meu negócio.
+```
+
+No Claude, peça em linguagem natural:
+
+```text
+Use a skill gtm-saude para construir a estratégia do meu negócio.
 ```
 
 A primeira pergunta é sobre o negócio. As seguintes se adaptam às respostas: problema, público, jornada, preço, alternativas, recursos e objetivo. Você pode responder “não sei”; a skill ajuda a formular hipóteses sem tratá-las como fatos.
@@ -44,6 +90,8 @@ Para desativar:
 Use $gtm-saude para construir minha estratégia, com usar_apify=false.
 ```
 
+No Claude, use a mesma frase sem o `$` ("Use a skill gtm-saude..."). Para usar o Apify no Claude, o conector do Apify precisa estar ligado na conversa.
+
 Aceita menos perfis que o limite quando só houver poucos pertinentes e confirmados. Seguidores e curtidas não são tratados como evidência de aquisição ou receita.
 
 ## Limites e validação
@@ -57,7 +105,7 @@ A estrutura da skill foi validada com o validador do Codex. A entrevista complet
 ```text
 gtm-saude/
 ├── SKILL.md
-├── agents/openai.yaml
+├── agents/openai.yaml   (só Codex)
 └── references/
     ├── entrevista.md
     ├── apify.md
